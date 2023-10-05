@@ -62,7 +62,7 @@
   "resources": [
     {
       "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2022-09-01",
+      "apiVersion": "2021-04-01",
       "location": "[parameters('region')]",
       "name": "[variables('resourceGroupName')]",
       "tags": "[union(variables('allResourceTags'), createObject('SplunkDMDeletionOrder', 10))]",
@@ -72,7 +72,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "tags": "[union(variables('allResourceTags'), createObject('SplunkDMDeletionOrder', 9))]",
-      "apiVersion": "2022-09-01",
+      "apiVersion": "2021-04-01",
       "name": "[variables('resourceDeployment')]",
       "resourceGroup": "[variables('resourceGroupName')]",
       "dependsOn": [
@@ -234,7 +234,7 @@
             {
               "type": "Microsoft.Storage/storageAccounts",
               "tags": "[union(parameters('allResourceTags'), createObject('SplunkDMDeletionOrder', 6))]",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2021-04-01",
               "name": "[variables('logsStorageAccountName')]",
               "location": "[parameters('region')]",
               "sku": {
@@ -249,8 +249,8 @@
               }
             },
             {
-              "type": "microsoft.storage/storageaccounts/managementpolicies",
-              "apiVersion": "2022-09-01",
+              "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+              "apiVersion": "2021-04-01",
               "name": "[concat(variables('logsStorageAccountName'), '/default')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('logsStorageAccountName'))]"
@@ -301,7 +301,7 @@
             {
               "type": "Microsoft.Storage/storageAccounts",
               "tags": "[union(parameters('allResourceTags'), createObject('SplunkDMDeletionOrder', 4))]",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2021-04-01",
               "name": "[variables('backupStorageAccountName')]",
               "location": "[parameters('region')]",
               "sku": {
@@ -316,7 +316,7 @@
             },
             {
               "type": "Microsoft.Storage/storageAccounts/managementPolicies",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2021-04-01",
               "name": "[concat(variables('backupStorageAccountName'), '/default')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('backupStorageAccountName'))]"
@@ -367,7 +367,7 @@
             {
               "type": "Microsoft.Storage/storageAccounts/providers/diagnosticSettings",
               "tags": "[parameters('allResourceTags')]",
-              "apiVersion": "2021-05-01-preview",
+              "apiVersion": "2017-05-01-preview",
               "name": "[concat(variables('backupStorageAccountName'), '/Microsoft.Insights/', 'splunk-storage-account-diagnostic-settings')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('backupStorageAccountName'))]",
@@ -386,7 +386,7 @@
             {
               "type": "Microsoft.Storage/storageAccounts",
               "tags": "[union(parameters('allResourceTags'), createObject('SplunkDMDeletionOrder', 3))]",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2021-04-01",
               "name": "[variables('jobsStorageAccountName')]",
               "location": "[parameters('region')]",
               "sku": {
@@ -402,7 +402,7 @@
             },
             {
               "type": "Microsoft.Storage/storageAccounts/managementPolicies",
-              "apiVersion": "2022-09-01",
+              "apiVersion": "2021-04-01",
               "name": "[concat(variables('jobsStorageAccountName'), '/default')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('jobsStorageAccountName'))]"
@@ -423,7 +423,7 @@
                           }
                         },
                         "filters": {
-                          "blobTypes": [ "blockBlob" ],
+                          "blobTypes": [ "appendBlob" ],
                           "prefixMatch": [ "insights-logs-" ]
                         }
                       }
@@ -453,7 +453,7 @@
             {
               "type": "Microsoft.Storage/storageAccounts/providers/diagnosticSettings",
               "tags": "[parameters('allResourceTags')]",
-              "apiVersion": "2021-05-01-preview",
+              "apiVersion": "2017-05-01-preview",
               "name": "[concat(variables('jobsStorageAccountName'), '/Microsoft.Insights/', 'splunk-storage-account-diagnostic-settings')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('jobsStorageAccountName'))]",
@@ -541,7 +541,7 @@
             {
               "type": "Microsoft.EventHub/namespaces/providers/diagnosticSettings",
               "tags": "[parameters('allResourceTags')]",
-              "apiVersion": "2021-05-01-preview",
+              "apiVersion": "2017-05-01-preview",
               "name": "[concat(variables('eventHubNamespaceName'), '/Microsoft.Insights/', 'splunk-eventhub-namespace-diagnostic-settings')]",
               "dependsOn": [
                 "[resourceId('Microsoft.EventHub/namespaces', variables('eventHubNamespaceName'))]",
@@ -576,7 +576,7 @@
             {
               "type": "Microsoft.Web/serverfarms/providers/diagnosticSettings",
               "tags": "[parameters('allResourceTags')]",
-              "apiVersion": "2021-05-01-preview",
+              "apiVersion": "2017-05-01-preview",
               "name": "[concat(variables('hostingPlanName'), '/Microsoft.Insights/', 'splunk-hosting-plan-diagnostic-settings')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
@@ -634,7 +634,7 @@
                           'DefaultEndpointsProtocol=https;AccountName=',
                           variables('jobsStorageAccountName'),
                           ';AccountKey=',
-                          listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jobsStorageAccountName')), '2022-09-01').keys[0].value)]"
+                          listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jobsStorageAccountName')), '2021-04-01').keys[0].value)]"
                     },
                     {
                       "name": "ConsumerGroupName",
@@ -658,7 +658,7 @@
                           'DefaultEndpointsProtocol=https;AccountName=',
                           variables('backupStorageAccountName'),
                           ';AccountKey=',
-                          listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('backupStorageAccountName')), '2022-09-01').keys[0].value)]"
+                          listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('backupStorageAccountName')), '2021-04-01').keys[0].value)]"
                     },
                     {
                       "name": "HecUrl",
@@ -692,7 +692,7 @@
             {
               "type": "Microsoft.Web/sites/providers/diagnosticSettings",
               "tags": "[parameters('allResourceTags')]",
-              "apiVersion": "2021-05-01-preview",
+              "apiVersion": "2017-05-01-preview",
               "name": "[concat(variables('functionName'), '/Microsoft.Insights/', 'splunk-azure-function-diagnostic-settings')]",
               "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', variables('functionName'))]",
