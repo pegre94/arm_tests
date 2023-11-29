@@ -277,7 +277,7 @@
                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('logsStorageAccountName'))]",
                 "metrics": [
                   {
-                    "category": "AllMetrics"
+                    "category": "AllMetrics",
                     "enabled": true
                   }
                 ]
@@ -313,7 +313,7 @@
                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('logsStorageAccountName'))]",
                 "metrics": [
                   {
-                    "category": "AllMetrics"
+                    "category": "AllMetrics",
                     "enabled": true
                   }
                 ]
@@ -439,7 +439,7 @@
                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('logsStorageAccountName'))]",
                 "metrics": [
                   {
-                    "category": "AllMetrics"
+                    "category": "AllMetrics",
                     "enabled": true
                   }
                 ]
